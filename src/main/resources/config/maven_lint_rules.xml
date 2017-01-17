@@ -9,13 +9,13 @@
 
   <bean id="VersionPropertiesMustNotUseHyphenRule" class="com.lewisd.maven.lint.rules.basic.VersionPropertiesMustUseDotVersionRule" />
   <bean id="VersionPropertiesMustUseProjectVersionRule" class="com.lewisd.maven.lint.rules.basic.VersionPropertiesMustUseProjectVersionRule" />
-  <bean id="GroupArtifactVersionMustBeInCorrectOrderRule" class="com.lewisd.maven.lint.rules.basic.GroupArtifactVersionMustBeInCorrectOrderRule">
-    <property name="projectElementOrder" ref="GroupArtifactVersionMustBeInCorrectOrderRule-projectElementOrder" />
-    <property name="dependencyElementOrder" ref="GroupArtifactVersionMustBeInCorrectOrderRule-dependencyElementOrder" />
-    <property name="pluginElementOrder" ref="GroupArtifactVersionMustBeInCorrectOrderRule-pluginElementOrder" />
+  <bean id="PomElementsMustBeInCorrectOrderRule" class="com.lewisd.maven.lint.rules.basic.PomElementsMustBeInCorrectOrderRule">
+    <property name="projectElementOrder" ref="PomElementsMustBeInCorrectOrderRule-projectElementOrder" />
+    <property name="dependencyElementOrder" ref="PomElementsMustBeInCorrectOrderRule-dependencyElementOrder" />
+    <property name="pluginElementOrder" ref="PomElementsMustBeInCorrectOrderRule-pluginElementOrder" />
   </bean>
 
-  <util:list id="GroupArtifactVersionMustBeInCorrectOrderRule-projectElementOrder">
+  <util:list id="PomElementsMustBeInCorrectOrderRule-projectElementOrder">
     <value>modelVersion</value>
     <value>parent</value>
     <value>groupId</value>
@@ -23,9 +23,31 @@
     <value>version</value>
     <value>packaging</value>
     <value>name</value>
+    <value>description</value>
+    <value>url</value>
+    <value>inceptionYear</value>
+    <value>organisation</value>
+    <value>licenses</value>
+    <value>developers</value>
+    <value>contributors</value>
+    <value>mailingLists</value>
+    <value>prerequisites</value>
+    <value>modules</value>
+    <value>scm</value>
+    <value>issueManagament</value>
+    <value>ciManagement</value>
+    <value>distributionManagement</value>
+    <value>properties</value>
+    <value>dependencyManagement</value>
+    <value>dependencies</value>
+    <value>repositories</value>
+    <value>pluginRepositories</value>
+    <value>build</value>
+    <value>reporting</value>
+    <value>profiles</value>
   </util:list>
 
-  <util:list id="GroupArtifactVersionMustBeInCorrectOrderRule-dependencyElementOrder">
+  <util:list id="PomElementsMustBeInCorrectOrderRule-dependencyElementOrder">
     <value>groupId</value>
     <value>artifactId</value>
     <value>version</value>
@@ -34,7 +56,7 @@
     <value>scope</value>
   </util:list>
 
-  <util:list id="GroupArtifactVersionMustBeInCorrectOrderRule-pluginElementOrder">
+  <util:list id="PomElementsMustBeInCorrectOrderRule-pluginElementOrder">
     <value>extensions</value>
     <value>groupId</value>
     <value>artifactId</value>

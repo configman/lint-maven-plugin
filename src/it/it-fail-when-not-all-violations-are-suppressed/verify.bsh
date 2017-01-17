@@ -9,7 +9,7 @@ try
     String[] expectedErrors = new String[] {
 		"[LINT] Completed with 2 violations",
 		"[LINT] DotVersionProperty: Version property names must use '.version', not '-version': 'dummy-impl-version' : 51:",
-		"[LINT] GAVOrder: Found 'type' but was expecting 'version' : 50:" };
+		"[LINT] PomElementOrder: Found 'type' but was expecting 'version' : 50:" };
 
     validateExpectedLintErrors(buf, expectedErrors);
 

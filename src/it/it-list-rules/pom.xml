@@ -17,13 +17,18 @@
       <plugin>
         <groupId>com.lewisd</groupId>
         <artifactId>lint-maven-plugin</artifactId>
-        <version>0.0.10</version> <!-- Not actually used, overridden by invoker.properties -->
+        <!-- <version>0.0.10</version>  Not actually used, overridden by invoker.properties -->
+        <!-- commented out the version because the invoker does not override it correctly -->
+        <!-- The test works and overrides this only when the invoker.goals value is limited to -->
+        <!-- the lint-maven-plugin list goal, which means removing the process-test-resources -->
+        <!-- goal and I am unsure why it was included in this test (and most others) so am using -->
+        <!-- this as a workaround for now -->
         <configuration>
           <onlyRunRules>
             <rule>ExecutionId</rule>
             <rule>RedundantPluginVersion</rule>
             <rule>RedundantDepVersion</rule>
-            <rule>GAVOrder</rule>
+            <rule>PomElementOrder</rule>
             <rule>DuplicateDep</rule>
           </onlyRunRules>
         </configuration>

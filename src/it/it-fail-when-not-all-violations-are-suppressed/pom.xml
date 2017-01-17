@@ -41,14 +41,14 @@
     <dependency>
       <groupId>localhost</groupId>
       <artifactId>dummy-b</artifactId>
-      <version>${dummy-impl-version}</version> <!-- NOLINT:GAVORDER --> <!-- NOLINT:DotVersionProperty --> <!-- should suppress both violations -->
+      <version>${dummy-impl-version}</version> <!-- NOLINT:PomElementOrder --> <!-- NOLINT:DotVersionProperty --> <!-- should suppress both violations -->
       <type>jar</type> 
     </dependency>
     <dependency>
       <groupId>localhost</groupId>
       <artifactId>dummy-c</artifactId>
       <type>jar</type> <!-- NOLINT:DotVersionProperty -->
-      <version>${dummy-impl-version}</version> <!-- NOLINT:GAVORDER -->
+      <version>${dummy-impl-version}</version> <!-- NOLINT:PomElementOrder -->
        <!-- should suppress neither violation -->
     </dependency>
   </dependencies>

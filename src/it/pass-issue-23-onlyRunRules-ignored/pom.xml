@@ -8,8 +8,8 @@
 
   <name>PageObject library</name>
   <description>an implementation of the page object pattern</description>
-  <inceptionYear>2015</inceptionYear>
   <url>https://github.com/lkwg82/de.lgohlke.selenium-pageobjects</url>
+  <inceptionYear>2015</inceptionYear>
 
   <licenses>
     <license>
@@ -41,14 +41,14 @@
     <url>https://github.com/lkwg82/de.lgohlke.selenium-pageobjects/issues</url>
   </issueManagement>
 
+  <prerequisites>
+    <maven>3.0.4</maven>
+  </prerequisites>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
-
-  <prerequisites>
-    <maven>3.0.4</maven>
-  </prerequisites>
 
   <build>
     <plugins>
@@ -61,7 +61,7 @@
             <rule>ExecutionId</rule>
             <rule>RedundantPluginVersion</rule>
             <rule>RedundantDepVersion</rule>
-            <rule>GAVOrder</rule>
+            <rule>PomElementOrder</rule>
             <rule>DuplicateDep</rule>
             <rule>OSSDevelopersSectionRule</rule>
             <!--<rule>OSSContinuousIntegrationManagementSectionRule</rule>-->

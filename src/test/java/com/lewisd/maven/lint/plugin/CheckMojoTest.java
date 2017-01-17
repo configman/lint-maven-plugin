@@ -120,7 +120,7 @@ public class CheckMojoTest {
 				fail("sth went wrong : " + log);
 			}
 
-			assertTrue("expected to have some warnings " + stdout.toString(), stdout.toString().contains("WARN "));
+			Assert.assertFalse("expected to have some warnings " + stdout.toString(), stdout.toString().contains("WARN "));
 		} finally {
 			System.setOut(oldOut); // cleanup
 		}

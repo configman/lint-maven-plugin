@@ -63,12 +63,25 @@ public class RulesSelectorTest {
         }
     }
 
+    private PatternSet allRulesPatternSet = new PatternSet();
+
     private Rule[] allRules = new Rule[]{new A1Rule(), new A2Rule(), new A3Rule(), new BRule()};
     private final RulesSelector selector = new RulesSelector(Sets.newHashSet(allRules));
 
     @Test
     public void testAll() {
         assertThat(selector.selectRules("all")).contains(allRules);
+    }
+
+    @Test
+    public void testEmptyStringRulesList() { assertThat(selector.selectRules(new String[] {}).contains(allRules));}
+
+    @Test
+    public void testRulesListIsNull() {assertThat(selector.selectRules()).contains(allRules);}
+
+    @Test
+    public void testRulesPatternSetNullWithAll() {
+        assertThat(selector.selectRules(allRulesPatternSet, "all").contains(allRules));
     }
 
     @Test

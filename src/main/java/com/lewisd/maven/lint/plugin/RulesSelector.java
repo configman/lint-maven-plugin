@@ -24,7 +24,7 @@ public class RulesSelector {
         Set<String> ruleNames = Sets.newHashSet(onlyRunRules);
         Set<Rule> selectedRules = Sets.newHashSet();
 
-        if (ruleNames.contains("all")) {
+        if (ruleNames.contains("all") || ruleNames.isEmpty()) {
             selectedRules.addAll(Sets.newHashSet(availableRules));
         } else {
             Set<String> rulesNotMatched = Sets.newHashSet();

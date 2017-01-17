@@ -4,11 +4,11 @@ import com.lewisd.maven.lint.rules.AbstractRuleIT;
 import com.lewisd.maven.lint.rules.POM;
 import org.junit.Test;
 
-public class GroupArtifactVersionMustBeInCorrectOrderRuleIT extends AbstractRuleIT<GroupArtifactVersionMustBeInCorrectOrderRule> {
+public class GroupArtifactVersionMustBeInCorrectOrderRuleIT extends AbstractRuleIT<PomElementsMustBeInCorrectOrderRule> {
 
     @Override
-    public GroupArtifactVersionMustBeInCorrectOrderRule getRule() {
-        return getRule(GroupArtifactVersionMustBeInCorrectOrderRule.class);
+    public PomElementsMustBeInCorrectOrderRule getRule() {
+        return getRule(PomElementsMustBeInCorrectOrderRule.class);
     }
 
     @Test
