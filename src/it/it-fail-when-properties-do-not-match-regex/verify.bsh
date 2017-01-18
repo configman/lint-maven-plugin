@@ -1,0 +1,25 @@
+source("src/it/shared/it-utils.bsh");
+
+try
+{
+    String buf = readBuildLog();
+
+    checkForWarnings(buf);
+
+	String[] expectedErrors = new String[] {
+		"[LINT] Completed with 3 violations" };
+
+    validateExpectedLintErrors(buf, expectedErrors);
+
+}
+catch( ValidationException t )
+{
+    return false;
+}
+catch( Throwable t )
+{
+    t.printStackTrace();
+    return false;
+}
+
+return true;

@@ -91,4 +91,6 @@
   <bean id="OSSLicenseSectionRule" class="com.lewisd.maven.lint.rules.opensource.MissingLicenseRule" />
   <bean id="OSSUrlSectionRule" class="com.lewisd.maven.lint.rules.opensource.MissingUrlRule" />
 
+  <bean id="PropertiesMustMatchRegexRule" class="com.lewisd.maven.lint.rules.basic.PropertiesMustMatchRegexRule" />
+
 </beans>
