@@ -1,15 +1,20 @@
 package com.lewisd.maven.lint.util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Exclusion;
 import org.apache.maven.model.InputLocation;
+import org.apache.maven.model.InputSource;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
@@ -143,6 +148,7 @@ public class ModelUtil {
         final Collection<Object> objects = new LinkedList<Object>();
 
         final Model originalModel = mavenProject.getOriginalModel();
+
         objects.add(originalModel);
         objects.addAll(expressionEvaluator.getPath(originalModel, "dependencies"));
         objects.addAll(expressionEvaluator.getPath(originalModel, "dependencyManagement/dependencies"));
@@ -151,6 +157,21 @@ public class ModelUtil {
         objects.addAll(expressionEvaluator.getPath(originalModel, "build/pluginManagement/plugins"));
         objects.addAll(expressionEvaluator.getPath(originalModel, "build/pluginManagement/plugins/dependencies"));
 
+        return objects;
+    }
+
+    // Create the getAllObjects by creating an enum of the paths that should be included in the objects Collection
+    // Iterate over the enum adding the objects at each path, which can then be checked in the rule
+    public Collection<Object> findTopLevelObjects(final MavenProject mavenProject) {
+        final Collection<Object> objects = new LinkedList<Object>();
+        final Model originalModel = mavenProject.getOriginalModel();
+
+        objects.add(originalModel);
+
+        for (PomTopLevelPathsEnum pathEnum: PomTopLevelPathsEnum.values()) {
+            final String path = pathEnum.toString();
+            objects.addAll(expressionEvaluator.getPath(originalModel, path));
+        }
         return objects;
     }
 
@@ -270,4 +291,63 @@ public class ModelUtil {
         return new Coordinates(groupId, artifactId, type, version);
     }
 
+    public void addMissingLocationsToModel(final MavenProject mavenProject) {
+        final Model originalModel = mavenProject.getOriginalModel();
+        File pomFile = originalModel.getPomFile();
+        List<String> pomContent = getPomFileContent(pomFile);
+
+        for (PomTopLevelPathsEnum pathEnum: PomTopLevelPathsEnum.values()) {
+            final String path = pathEnum.toString();
+            InputLocation location = getLocation(originalModel, path);
+            if (location == null) {
+                int lineNumber = getLineNumberOfElementFromPomFile(pomContent, path);
+                if (shouldAddLocation(originalModel, lineNumber, path)) {
+                    final InputSource source = new InputSource();
+                    source.setLocation(pomFile.getAbsolutePath());
+                    InputLocation newLocation = new InputLocation(lineNumber, 1, source);
+                    originalModel.setLocation(path, newLocation);
+                }
+            }
+        }
+    }
+
+    private boolean shouldAddLocation(Model originalModel, int lineNumber, String path) {
+        Collection<Object> objectsFromEvaluator = expressionEvaluator.getPath(originalModel, path);
+        if (!objectsFromEvaluator.isEmpty() && lineNumber > 0) {
+            return true;
+        }
+        return false;
+    }
+    private int getLineNumberOfElementFromPomFile(List<String> pomFileContent, String path) {
+
+        // Find first line in the POM file that contains the path element required
+        int index = 1;
+        for (String line: pomFileContent) {
+            if (line.contains("<"+path+">")) {
+                return index;
+            }
+            index = index +1;
+        }
+
+        return -1;
+    }
+
+    private List<String> getPomFileContent(File pomFile) {
+        List<String> fileContent = new ArrayList<String>();
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(pomFile);
+            while (scanner.hasNextLine()) {
+                fileContent.add(scanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
+
+        return fileContent;
+    }
 }

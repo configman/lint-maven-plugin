@@ -67,10 +67,12 @@ public class PomElementsMustBeInCorrectOrderRule extends AbstractRule {
                      final ResultCollector resultCollector) {
 
     final Collection<Object> objectsToCheck = modelUtil.findGAVObjects(mavenProject);
+    modelUtil.addMissingLocationsToModel(mavenProject);
 
     for (final Object object : objectsToCheck) {
       final List<String> sortOrder = findSortOrder(object.getClass());
       final Map<Object, InputLocation> locations = modelUtil.getLocations(object);
+
 
       // We don't need the location of the outer element for this rule
       locations.remove("");

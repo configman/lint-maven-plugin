@@ -6,13 +6,12 @@ try
 
     checkForWarnings(buf);
 
-    String[] expectedErrors = new String[] {
-		"[LINT] Completed with 2 violations",
-		"[LINT] PomElementOrder: Found 'type' but was expecting 'version' : 32:",
-		"[LINT] DotVersionProperty: Version property names must use '.version', not '-version': 'dummy-impl-version' : 33:" };
+	String[] expectedErrors = new String[] {
+		"[LINT] Completed with 1 violation",
+		"[LINT] PomElementOrder: " };
 
     validateExpectedLintErrors(buf, expectedErrors);
-
+    
 }
 catch( ValidationException t )
 {
