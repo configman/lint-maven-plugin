@@ -17,7 +17,7 @@ import com.lewisd.maven.lint.util.ModelUtil;
 
 public class PropertiesMustMatchRegexRule extends AbstractRule {
 
-  private static String patternToMatchPropertyNames = "[a-zA-Z][-a-zA-Z.]*[a-zA-Z]";
+  private static String patternToMatchPropertyNames = "[a-zA-Z][-a-zA-Z.0-9]*[a-zA-Z0-9]";
   private static Pattern pattern = Pattern.compile(patternToMatchPropertyNames);
 
   @Autowired
